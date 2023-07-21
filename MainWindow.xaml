@@ -1,0 +1,137 @@
+﻿<qw:WindowBasic x:Class="HttpPublish.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HttpPublish"
+        mc:Ignorable="d" Background="#FF1E1E1E" BorderBrush="Gray" BorderThickness="1" Name="THIS"
+        Title="HttpPublish" AllowDrop="True" Height="700" Width="1400" Topmost="False" xmlns:qw="clr-namespace:QWindow;assembly=QWindow" xmlns:qwc="clr-namespace:QWindow.Controls;assembly=QWindow">
+    <Grid>
+        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <qwc:AListBox Name="LIST_Display" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                <qwc:AListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1.5"/>
+                        <Setter Property="BorderBrush" Value="LightGray"/>
+                        <Setter Property="Width" Value="auto"/>
+                        <Setter Property="Height" Value="auto"/>
+                        <!--<Setter Property="MinWidth" Value="200"/>-->
+                        <Setter Property="MinHeight" Value="150"/>
+                        <Setter Property="MinWidth" Value="40"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ControlTemplate.Resources>
+                                        <Style TargetType="Button" x:Key="BUTTON_ControlBt">
+                                            <Setter Property="Width" Value="auto"/>
+                                            <Setter Property="Height" Value="auto"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="BorderBrush" Value="White"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="Transparent" Width="25" Padding="3" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderBrush" Value="LightCoral"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ControlTemplate.Resources>
+                                    <Border CornerRadius="1" Padding="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                        <!--<Border.Effect>
+                                        <DropShadowEffect Color="Black" Opacity="0.2">
+                                        </DropShadowEffect>
+                                    </Border.Effect>-->
+                                        <Grid>
+                                            <!--图片-->
+                                            <Border Name="BD_IMAGEVISUAL" Visibility="Collapsed" Width="200">
+                                                <Grid>
+                                                    <Image Source="{Binding Url}"/>
+                                                    <Border x:Name="SELECTEDMARK" Background="#40000000" Visibility="Visible"/>
+                                                    <Border Height="30" VerticalAlignment="Bottom" Background="#d0000000">
+                                                        <TextBlock Text="{Binding Title}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                            <Border Name="BD_FILE" Visibility="Collapsed" Width="200">
+                                                <Grid>
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock FontSize="18">
+                                                            <Run Text="{Binding File.Name,Mode=OneWay}"/>
+                                                            <LineBreak/>
+                                                            <Run Text="{Binding File.Length,Mode=OneWay}" />
+                                                            <Run Text="B"/>
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Background="#FF1E1E1E" Padding="5" Visibility="Collapsed" HorizontalAlignment="Right" Name="CONTROLBUTTONS" >
+                                                <StackPanel >
+                                                    <Button Style="{StaticResource BUTTON_ControlBt}" Tag="WEB" Click="BT_ControlButton_Click">
+                                                        <Image Source="/Icon/Webbroser.png" />
+                                                    </Button>
+                                                    <Button Style="{StaticResource BUTTON_ControlBt}" Tag="LINK" Click="BT_ControlButton_Click"  Margin="0,5,0,0">
+                                                        <Image Source="/Icon/Link.png" />
+                                                    </Button>
+                                                    <Button Style="{StaticResource BUTTON_ControlBt}" Tag="OPEN" Click="BT_ControlButton_Click" Margin="0,5,0,0">
+                                                        <Image Source="/Icon/OpenFolder.png" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ItemType}" Value="Image">
+                                            <Setter Property="Visibility" Value="Visible" TargetName="BD_IMAGEVISUAL"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ItemType}" Value="FileStream">
+                                            <Setter Property="Visibility" Value="Visible" TargetName="BD_FILE"/>
+                                        </DataTrigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" TargetName="CONTROLBUTTONS"/>
+                                            <Setter Property="BorderBrush" Value="DodgerBlue"/>
+                                            <Setter Property="Background" Value="#FF444444"/>
+                                            <Setter Property="Visibility" Value="Collapsed" TargetName="SELECTEDMARK"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </qwc:AListBox.ItemContainerStyle>
+            </qwc:AListBox>
+        </ScrollViewer>
+        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Grid>
+                <TextBlock Foreground="LightGray" Margin="5" FontSize="10">
+                    <Run Text="端口："/>
+                    <Run Text="{x:Static local:MainWindow.ipPortStr}"/>
+                    <Run Text=" |  地址："/>
+                    <Run Text="{x:Static local:MainWindow.usingIpAddresssStr}"/>
+                </TextBlock>
+            </Grid>
+        </Border>
+        <Border x:Name="BORDER_DragFileMark" Background="#b0000000" Visibility="Collapsed">
+            <Grid>
+                <Border Width="200" Height="200" BorderThickness="2" BorderBrush="Gray" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <Grid>
+                        <TextBlock Text="+" FontSize="100" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-15,0,0"/>
+                    </Grid>
+                </Border>
+                <TextBlock Name="TEXT_DragFileTitle" Text="拖入文件 ..." Foreground="White" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Grid>
+        </Border>
+    </Grid>
+</qw:WindowBasic>

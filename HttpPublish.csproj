@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icon\Link.png" />
+    <None Remove="Icon\OpenFolder.png" />
+    <None Remove="Icon\Webbroser.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HttpServerUtils\HttpServerUtils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="QWindow">
+      <HintPath>C:\Users\quxin\source\repos\quxingbai\QWindow\QWindow\bin\Debug\net6.0-windows\QWindow.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon\Link.png" />
+    <Resource Include="Icon\OpenFolder.png" />
+    <Resource Include="Icon\Webbroser.png" />
+  </ItemGroup>
+
+</Project>
